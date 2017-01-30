@@ -25,10 +25,6 @@ class Simon
     unless game_over
       round_success_message
       @sequence_length += 1
-      if @sequence_length == 9
-        @game_over = true
-        puts "You win!"
-      end
     end
   end
 
@@ -44,7 +40,6 @@ class Simon
 
   def require_sequence
     puts "Enter the first letter of the colors, one at a time!"
-    player_guess = []
 
     @seq.each do |color|
       print "> "
