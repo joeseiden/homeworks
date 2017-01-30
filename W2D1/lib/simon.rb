@@ -10,15 +10,18 @@ class Simon
   end
 
   def play
-    take_turn until game_over
+    until game_over
+      take_turn
+      system("clear")
+    end
     game_over_message
     reset_game
   end
 
   def take_turn
     show_sequence
-    sleep(5)
     require_sequence
+
     unless game_over
       round_success_message
       @sequence_length += 1
@@ -31,23 +34,28 @@ class Simon
 
   def show_sequence
     add_random_color
-    puts seq
+    @seq.each do |color|
+      puts color
+      sleep 0.75
+      system("clear")
+      sleep 0.25
+    end
   end
 
   def require_sequence
-    system("clear")
-    puts "Enter the colors, one at a time!"
+    puts "Enter the first letter of the colors, one at a time!"
     player_guess = []
-    until player_guess.length == sequence_length
-      print ">"
-      input = STDIN.gets.chomp
-      player_guess << input
-    end
 
-    unless player_guess == seq
-      puts "Sorry, that wasn't it..."
-      @game_over = true
+    @seq.each do |color|
+      print "> "
+      input = STDIN.gets.chomp
+      if color[0] != input
+        puts "Sorry, that wasn't it..."
+        @game_over = true
+        break
+      end
     end
+    sleep 0.25
   end
 
   def add_random_color
@@ -56,12 +64,11 @@ class Simon
 
   def round_success_message
     puts "\n"
-    puts "You got it!"
-    puts "\n"
+    puts "You got it! Get ready for the next one."
   end
 
   def game_over_message
-    puts "Game over!"
+    puts "Game over! You made it #{@sequence_length - 1} rounds."
   end
 
   def reset_game
