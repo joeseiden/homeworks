@@ -64,10 +64,17 @@ class Board
   end
 
   def one_side_empty?
-    cups.take(6).all? { |cup| cup.empty? }
-    cups.drop(6).all? { |cup| cup.empty? }
+    @cups.take(6).all?(&:empty?) || @cups.drop(6).all?(&:empty?)
   end
 
   def winner
+    player1_count = @cups[6].count
+    player2_count = @cups[13].count
+
+    if player1_count == player2_count
+      :draw
+    else
+      player1_count > player2_count ? @name1 : name2
+    end
   end
 end
