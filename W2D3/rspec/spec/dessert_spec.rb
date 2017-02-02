@@ -19,7 +19,7 @@ describe Dessert do
     end
 
     it "starts ingredients as an empty array" do
-      expect(browne.ingredients).to eq([])
+      expect(brownie.ingredients).to eq([])
     end
 
     it "raises an argument error when given a non-integer quantity" do
