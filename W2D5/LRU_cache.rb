@@ -10,11 +10,10 @@ class LRUCache
   def add(el)
     if @cache.include?(el)
       @cache.delete(el)
-      @cache.push(el)
     else
       @cache.shift
-      @cache.push(el)
     end
+    @cache.push(el)
   end
 
   def show
